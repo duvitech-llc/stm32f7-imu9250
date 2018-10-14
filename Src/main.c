@@ -162,7 +162,7 @@ int main(void)
 	if (UART_UpdataFlag) {
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 		printf(
-				"\r\n /-------------------------------------------------------------/ \r\n");
+				"\r\n-------------------------------------------------------------\r\n");
 		printf("Roll: %.2f     Pitch: %.2f     Yaw: %.2f \r\n",
 				angles[2], angles[1], angles[0]);
 		printf("Acceleration: X: %d     Y: %d     Z: %d \r\n",
@@ -176,7 +176,7 @@ int main(void)
     HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
     HAL_Delay(50);
 	IMU_SampleFlag = 1;
-	if(count>9){
+	if(count>5){
 		UART_UpdataFlag = 1;
 		count = 0;
 	}
@@ -354,19 +354,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : USB_PowerSwitchOn_Pin */
-  GPIO_InitStruct.Pin = USB_PowerSwitchOn_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(USB_PowerSwitchOn_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : USB_OverCurrent_Pin */
-  GPIO_InitStruct.Pin = USB_OverCurrent_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(USB_OverCurrent_GPIO_Port, &GPIO_InitStruct);
 
 }
 
