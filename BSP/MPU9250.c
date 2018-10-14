@@ -82,7 +82,7 @@ uint8_t I2C_ReadOneByte(uint8_t DevAddr, uint8_t RegAddr)
   */
 void MPU9250_Init(void)
 {
-  I2C_WriteOneByte(GYRO_ADDRESS,PWR_MGMT_1, 0x00);
+	I2C_WriteOneByte(GYRO_ADDRESS,PWR_MGMT_1, 0x00);
 	I2C_WriteOneByte(GYRO_ADDRESS,SMPLRT_DIV, 0x07);
 	I2C_WriteOneByte(GYRO_ADDRESS,CONFIG, 0x06);
 	I2C_WriteOneByte(GYRO_ADDRESS,GYRO_CONFIG, 0x10);
@@ -92,11 +92,12 @@ void MPU9250_Init(void)
 	if(MPU9250_Check())
 	{
 //		GPIO_SetBits(GPIOB, GPIO_Pin_15);
-		printf("ok");
+		printf("ok\r\n");
 	}
 	else
 	{
 //		GPIO_ResetBits(GPIOB, GPIO_Pin_15);
+		printf("MPU9250 NOT Found\r\n");
 	}
 	
 	MPU9250_InitGyrOffset();
@@ -211,7 +212,8 @@ void MPU9250_READ_MAG(void)
   */
 uint8_t MPU9250_Check(void) 
 {
-	if(WHO_AM_I_VAL == I2C_ReadOneByte(DEFAULT_ADDRESS, WHO_AM_I))  
+	uint8_t val = I2C_ReadOneByte(DEFAULT_ADDRESS, WHO_AM_I);
+	if(WHO_AM_I_VAL == val)
 	{
 		return 1;
 	}

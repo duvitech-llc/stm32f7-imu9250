@@ -85,10 +85,10 @@
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
+#define LD1_Pin GPIO_PIN_6
+#define LD1_GPIO_Port GPIOB
 #define LD2_Pin GPIO_PIN_7
 #define LD2_GPIO_Port GPIOB
-#define LD1_Pin GPIO_PIN_0
-#define LD1_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**

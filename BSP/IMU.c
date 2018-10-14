@@ -34,6 +34,17 @@ uint8_t PressureType;
   * @retval 
   */
 
+float invSqrt (float x){
+  union{
+    int32_t i;
+    float   f;
+  } conv;
+  conv.f = x;
+  conv.i = 0x5f1ffff9 - (conv.i >> 1);
+  return conv.f * (1.68191409f - 0.703952253f * x * conv.f * conv.f);
+}
+
+#if 0
 float invSqrt(float x) 
 {
 	float halfx = 0.5f * x;
@@ -46,7 +57,7 @@ float invSqrt(float x)
 	
 	return y;
 }
-
+#endif
 
 /**
   * @brief  initializes IMU
@@ -203,9 +214,10 @@ void IMU_GetQuater(void)
 void IMU_GetYawPitchRoll(float *Angles) 
 {
   IMU_GetQuater(); 
-	Angles[1] = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; // pitch
-	Angles[2] = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // roll
-	Angles[0] = atan2(-2 * q1 * q2 - 2 * q0 * q3, 2 * q2 * q2 + 2 * q3 * q3 - 1) * 57.3;   
+  Angles[1] = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; // pitch
+  Angles[2] = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // roll
+  Angles[0] = atan2(-2 * q1 * q2 - 2 * q0 * q3, 2 * q2 * q2 + 2 * q3 * q3 - 1) * 57.3;
+
 }
 
 /******************* (C) COPYRIGHT 2014 Waveshare *****END OF FILE*******************/
